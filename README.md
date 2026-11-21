@@ -9,7 +9,20 @@ tags:
 
 # Claude Code Discord Connector
 
-Connect Claude Code sessions to Discord for real-time multi-agent communication without losing context, tools, or shell access.
+A Discord bridge for persistent Claude Code sessions that need their tools, context and multi-agent continuity.
+
+## The problem
+
+The usual way to put an agent on Discord is a bot or webhook that starts a fresh `claude -p` for every message. Each message then begins with no memory, no open files and no shell state. This connector flips that around: your long-running Claude Code session polls Discord over plain REST, so it keeps its full context, tools and shell between messages.
+
+## When to use this instead of a normal Discord bot, webhook or chat bridge
+
+- You want one Claude Code session to stay connected to Discord without losing its shell and tool context.
+- You run several long-lived agents that coordinate through shared channels and need continuity across hours or days.
+- You prefer polling plus REST (a shell script and a bot token) over a daemon, a WebSocket gateway or `discord.py`.
+- You want remote coordination without rebuilding your agent workflow around Discord. Discord stays one channel the session reads and writes, next to SSH, editing and Docker.
+
+If you only need to post one-way notifications, a plain webhook is simpler.
 
 See [SKILL.md](SKILL.md) for full documentation, setup, and usage patterns.
 
